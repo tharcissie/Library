@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="main">
+
+      <div class="inner">
+        <!-- About Us -->
+        <header id="inner">
+          <h3>Signup As Admin!</h3>
+        </header>
+
+        <br>
+        <div class="container" id="main">
+          <div class="row">
+            <div class="col-md-6">
+              <section>
+                <form method="post" action="" enctype='multipart/form-data'>
+                  {% csrf_token %}
+                  <div class="fields">
+                    {% for field in form %}
+                    <div class="field half">
+                      <label for="">{{ field.label_tag }}</label>
+                      {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div class="field text-right">
+                      <label>&nbsp;</label>
+
+                      <ul class="actions">
+                        <li><input type="submit" value="SignUp" class="primary" /></li>
+                      </ul>
+                    </div>
+                  </div>
+                </form>
+                <div class="text-center">Already have an account? <a href="adminlogin">Login here</a></div>
+              </section>
+            </div>
+            <div class="col-md-6 d-none d-lg-block ">
+              <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+            </div>
+          </div>
+        </div>
+
+
+
+        <br>
+      </div>
+
+    </div>
+
+    {% endblock %}

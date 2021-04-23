@@ -1,0 +1,16 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+
+	<h3 class="p-3 mb-2 bg-dark text-white" style='font-size: 50px;text-align:center;'>Book Updated Successfully !</h3>
+	<br><br>
+	<div class="options" style="text-align:center">
+		<button> <a href="{% url 'addbook' %}">Click here to add more Book</a><br><br></button>
+
+		<button><a href="{% url 'viewbook' %}">Click here to view Book in Library</a></button><br><br>
+
+
+	</div>
+</div>
+{% endblock %}

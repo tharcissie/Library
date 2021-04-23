@@ -1,0 +1,23 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!-- Main -->
+<div id="main">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-5">
+
+                    <div class="main">
+                        <form method="POST">
+                            {% csrf_token %}
+                           Book returned?
+                            <input type="submit" value="Yes" />
+                            <a href="/">Cancel </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

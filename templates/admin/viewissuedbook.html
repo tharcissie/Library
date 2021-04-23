@@ -1,0 +1,58 @@
+{% extends 'base2.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="container">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Issued Books</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="table-responsive">
+        {% if li %}
+        <table class="table no-margin">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Student Enrollment</th>
+              <th>Book Name</th>
+              <th>Book Author</th>
+              <th>Issue Date</th>
+              <th>Expiry Date</th>
+              <th>Fine</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in li %}
+          <tr>
+            <td>{{t.0}}</td>
+            <td>{{t.1}}</td>
+            <td>{{t.2}}</td>
+            <td>{{t.3}}</td>
+            <td>{{t.4}}</td>
+            <td>{{t.5}}</td>
+            <td>{{t.6}}</td>
+            <td><a href="">Returned</a></td>
+          </tr>
+          {%endfor%}
+          </tbody>
+        </table>
+        {% else %}
+        <h1>0 Book Issued</h1>
+        {% endif %}
+      </div>
+      <!-- /.table-responsive -->
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

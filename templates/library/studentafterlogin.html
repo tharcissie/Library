@@ -1,0 +1,76 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Dashboard
+    <small>Control panel</small>
+  </h1>
+</section>
+<!-- ./col -->
+<div class="col-lg-3 col-xs-6">
+  <!-- small box -->
+  <div class="small-box bg-green">
+    <div class="inner">
+      <h3>{{book}}</h3>
+
+      <p>Total Books</p>
+    </div>
+    <div class="icon">
+      <i class="ion ion-stats-bars"></i>
+    </div>
+    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+  </div>
+</div> <br><br><br><br><br><br><br><br>
+
+<div class="container">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Available Book in Library!</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="table-responsive">
+        {% if books %}
+        <table class="table no-margin">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>ISBN</th>
+              <th>Author</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td>{{book.name}}</td>
+              <td>{{book.isbn}}</td>
+              <td>{{book.author}}</td>
+              <td>{{book.category}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <h1>Have 0 book</h1>
+        {% endif %}
+      </div>
+      <!-- /.table-responsive -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}

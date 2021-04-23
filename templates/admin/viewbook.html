@@ -1,0 +1,53 @@
+{% extends 'base2.html' %}
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<div class="container">
+  <div class="box box-info">
+    <div class="box-header with-border">
+      <h3 class="box-title">Available Book in Library!</h3>
+
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+        </button>
+        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <div class="table-responsive">
+        {% if books %}
+        <table class="table no-margin">
+          <thead>
+            <tr>
+              <th>Book Name</th>
+              <th>ISBN</th>
+              <th>Author</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+            <tr>
+              <td>{{book.name}}</td>
+              <td>{{book.isbn}}</td>
+              <td>{{book.author}}</td>
+              <td>{{book.category}}</td>
+              <td><a href="{% url 'updatebook' book.id %}"><i class="fas fa-edit"></i></a></td>
+              <td><a class="text-red" href="{% url 'deletebook' book.id %}"><i class="fas fa-trash-alt"></i></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <h1>Have 0 book</h1>
+        {% endif %}
+      </div>
+      <!-- /.table-responsive -->
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
