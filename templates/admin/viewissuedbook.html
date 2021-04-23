@@ -38,7 +38,7 @@
             <td>{{t.4}}</td>
             <td>{{t.5}}</td>
             <td>{{t.6}}</td>
-            <td><a href="">Returned</a></td>
+            <td><a href="{% url 'return_book' t.id %}">Returned</a></td>
           </tr>
           {%endfor%}
           </tbody>

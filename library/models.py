@@ -41,12 +41,13 @@ def get_expiry():
     return datetime.today() + timedelta(days=15)
 
 class IssuedBook(models.Model):
-    #book_status = (('pending', 'pending'),('returned', 'returned'))
+    BOOK_STATUS = (('YES', 'YES'),('NO', 'NO'))
 
     enrollment=models.CharField(max_length=30)
     isbn=models.CharField(max_length=30)
     issuedate=models.DateField(auto_now=True)
     expirydate=models.DateField(default=get_expiry)
-   # status = models.CharField(max_length=1, choices = book_status, blank = True, default = 'pending')
+    is_returned = models.CharField(max_length=10, choices = BOOK_STATUS, default = 'NO')
+    
     def __str__(self):
         return self.enrollment

@@ -183,7 +183,7 @@ def issuebook_view(request):
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def viewissuedbook_view(request):
-    issuedbooks=models.IssuedBook.objects.all()
+    issuedbooks=models.IssuedBook.objects.all().filter(is_returned='NO')
     li=[]
     for ib in issuedbooks:
         issdate=str(ib.issuedate.day)+'-'+str(ib.issuedate.month)+'-'+str(ib.issuedate.year)
@@ -207,6 +207,14 @@ def viewissuedbook_view(request):
     return render(request,'admin/viewissuedbook.html',{'li':li})
 
 
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def return_issued_book_view(request, pk):
+    issued_book = models.IssuedBook.objects.get(id=pk)
+    form = forms.ReturnIssuedBookForm(request.POST or None, instance=issued_book)
+    if form.is_valid():
+        form.save()
+    return render(request, 'admin/return_issued_book.html', {'form':form})
 
 
 
