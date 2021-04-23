@@ -18,7 +18,7 @@ class StudentUserForm(forms.ModelForm):
 class StudentExtraForm(forms.ModelForm):
     class Meta:
         model=models.StudentExtra
-        fields=['enrollment','branch']
+        fields=['enrollment','department']
 
 class BookForm(forms.ModelForm):
     class Meta:

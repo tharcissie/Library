@@ -48,7 +48,8 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="/" class="active">Home</a></li>
-                <li><a href="/adminclick">Admin</a></li>
+                <li><a href="{% url 'admin-login' %}">Admin</a></li>
+                <li><a href="/adminclick">Librarian</a></li>
                 <li><a href="/studentclick">Student</a></li>
             </ul>
         </nav>
@@ -58,10 +59,10 @@
 {% endblock %}
 
   <!-- Footer -->
-  <footer id="footer">
+  <footer id="footer" class="bg-dark">
     <div class="inner">
         <ul class="copyright">
-            <li>Copyright © 2021 Library-Management-System </li>
+            <li class="text-light">Copyright © 2021 Library-Management-System </li>
         </ul>
     </div>
 </footer>

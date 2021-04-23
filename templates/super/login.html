@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="main">
+
+    <br>
+    <br>
+
+    <div class="inner">
+        <!-- About Us -->
+        <header id="inner">
+            <h3>Login As Admin!</h3>
+        </header>
+
+        <br>
+        <div class="container" id="main">
+            <div class="row">
+                <div class="col-md-6">
+                    <section>
+                        <form class="row g-3" action="{% url 'admin-login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="fields">
+                                <div class="field half">
+                                    <label for="username" class="col-sm-2 col-form-label">Email</label>
+                                    <input type="text" class="form-control" name="username">
+                                </div>
+                                <div class="field half">
+                                    <label for="password" class="col-sm-2 col-form-label">Password</label>
+                                    <input type="password" class="form-control" name="password">
+                                </div>
+                                <div class="field text-right">
+                                    <label>&nbsp;</label>
+
+                                    <ul class="actions">
+                                        <li><input type="submit" value="Login" class="primary" /></li>
+                                    </ul>
+                                </div>
+                        </form>
+                    </section>
+                </div>
+                <div class="col-md-6 d-none d-lg-block ">
+                    <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Ym9va3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="">
+                </div>
+            </div>
+        </div>
+
+
+
+        <br>
+    </div>
+
+</div>
+
+{% endblock %}

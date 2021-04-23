@@ -55,7 +55,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Librarian</b>LTE</span>
+        <span class="logo-lg"><b>Admin</b>LTE</span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
@@ -106,11 +106,10 @@
             </a>
           </li>
           <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
-          <li><a href="addbook"><i class="fa fa-plus"></i> <span>Add Book</span></a></li>
-          <li><a href="viewbook"><i class="fa fa-book"></i> <span>View Books</span></a></li>
-          <li><a href="issuebook"><i class="fa fa-file"></i> <span>Issue Book</span></a></li>
-          <li><a href="viewissuedbook"><i class="fa fa-eye"></i> <span>View Issued Books</span></a></li>
-          <li><a href="viewstudent"><i class="fa fa-users"></i> <span>View Students</span></a></li>
+          <li><a href="{% url 'addlibrarian' %}"><i class="fa fa-user-plus"></i> <span>Add Librarian</span></a></li>
+          <li><a href="{% url 'view' %}"><i class="fa fa-book"></i> <span>View Books</span></a></li>
+          <li><a href="{% url 'issued' %}"><i class="fa fa-eye"></i> <span>View Issued Books</span></a></li>
+          <li><a href="{% url 'students' %}"><i class="fa fa-users"></i> <span>View Students</span></a></li>
           <li><a href="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
         </ul>
       </section>

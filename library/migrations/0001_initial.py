@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('enrollment', models.CharField(max_length=40)),
-                ('branch', models.CharField(blank=True, max_length=40, null=True)),
+                ('department', models.CharField(blank=True, max_length=40, null=True)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

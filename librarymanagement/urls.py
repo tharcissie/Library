@@ -23,16 +23,25 @@ urlpatterns = [
     path('adminlogin', LoginView.as_view(template_name='admin/adminlogin.html')),
     path('studentlogin', LoginView.as_view(template_name='library/studentlogin.html')),
 
+    path('login', LoginView.as_view(template_name='super/login.html'), name='admin-login'),
+
     path('logout', LogoutView.as_view(), name="logout"),
     path('afterlogin', views.afterlogin_view),
 
     path('addbook', views.addbook_view, name='addbook'),
+    path('addlibrarian', views.adminsignup_view, name='addlibrarian'),
 
     path('<int:id>', views.update_view, name='updatebook'),
     path('<int:id>/delete', views.delete_view, name='deletebook'),
 
     path('viewbook', views.viewbook_view, name='viewbook'),
+
+    path('super_viewbook', views.viewbook, name='view'),
+
+    path('super_viewissuedbook', views.viewissuedbook, name='issued'),
+
     path('issuebook', views.issuebook_view),
+    path('super_viewstudent', views.viewstudent, name='students'),
     path('viewissuedbook', views.viewissuedbook_view),
     path('viewstudent', views.viewstudent_view),
     path('viewissuedbookbystudent', views.viewissuedbookbystudent),
