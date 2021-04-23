@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from . import forms,models
 from django.http import HttpResponseRedirect
@@ -96,7 +96,7 @@ def afterlogin_view(request):
     history = models.Book.objects.filter(category='History').order_by('-pk')[:4]
     student = models.StudentExtra.objects.all().count()
     book = models.Book.objects.all().count()
-    isue = models.IssuedBook.objects.all().count()
+    isue = models.IssuedBook.objects.filter(is_returned='NO').count()
     books = models.Book.objects.all()
 
     context = {
@@ -137,7 +137,7 @@ def update_view(request, id):
     form = forms.BookForm(request.POST or None, instance = book)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect('viewbook')
+        return Redirect('viewbook')
     context["form"] = form
     return render(request, "admin/update_book.html", context)
 
@@ -147,7 +147,7 @@ def delete_view(request, id):
     book = get_object_or_404(models.Book, id = id)
     if request.method =="POST":
         book.delete()
-        return HttpResponseRedirect("/")
+        return redirect("viewbook")
     return render(request, "admin/deletebook.html", context)
 
 
@@ -190,7 +190,7 @@ def issuebook_view(request):
 @login_required(login_url='adminlogin')
 @user_passes_test(is_admin)
 def viewissuedbook_view(request):
-    issuedbooks=models.IssuedBook.objects.all()
+    issuedbooks=models.IssuedBook.objects.all().filter(is_returned='NO')
     li=[]
     for ib in issuedbooks:
         issdate=str(ib.issuedate.day)+'-'+str(ib.issuedate.month)+'-'+str(ib.issuedate.year)
@@ -204,10 +204,11 @@ def viewissuedbook_view(request):
             fine=day*10
 
         books=list(models.Book.objects.filter(isbn=ib.isbn))
+        issue=list(models.IssuedBook.objects.filter(id=ib.id))
         students=list(models.StudentExtra.objects.filter(enrollment=ib.enrollment))
         i=0
         for l in books:
-            t=(students[i].get_name,students[i].enrollment,books[i].name,books[i].author,issdate,expdate,fine)
+            t=(students[i].get_name,students[i].enrollment,books[i].name,books[i].author,issdate,expdate,fine,issue[i].id,issue[i].id)
             i=i+1
             li.append(t)
 
@@ -215,7 +216,7 @@ def viewissuedbook_view(request):
 
 
 def viewissuedbook(request):
-    issuedbooks=models.IssuedBook.objects.all()
+    issuedbooks=models.IssuedBook.objects.all().filter(is_returned='NO')
     li=[]
     for ib in issuedbooks:
         issdate=str(ib.issuedate.day)+'-'+str(ib.issuedate.month)+'-'+str(ib.issuedate.year)
@@ -239,6 +240,15 @@ def viewissuedbook(request):
     return render(request,'super/issuedbook.html',{'li':li})
 
 
+@login_required(login_url='adminlogin')
+@user_passes_test(is_admin)
+def return_issued_book_view(request, id):
+    issued_book = models.IssuedBook.objects.get(id=id)
+    form = forms.ReturnIssuedBookForm(request.POST or None, instance=issued_book)
+    if form.is_valid():
+        form.save()
+        return redirect('viewissuedbook')
+    return render(request, 'admin/return_issued_book.html', {'form':form})
 
 
 
@@ -257,7 +267,7 @@ def viewstudent(request):
 @login_required(login_url='studentlogin')
 def viewissuedbookbystudent(request):
     student=models.StudentExtra.objects.filter(user_id=request.user.id)
-    issuedbook=models.IssuedBook.objects.filter(enrollment=student[0].enrollment)
+    issuedbook=models.IssuedBook.objects.filter(enrollment=student[0].enrollment).filter(is_returned='NO')
     li1=[]
     li2=[]
     for ib in issuedbook:

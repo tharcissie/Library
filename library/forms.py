@@ -29,3 +29,9 @@ class IssuedBookForm(forms.Form):
     isbn2=forms.ModelChoiceField(queryset=models.Book.objects.all(),empty_label="Name and isbn", to_field_name="isbn",label='Name and Isbn')
     enrollment2=forms.ModelChoiceField(queryset=models.StudentExtra.objects.all(),empty_label="Name and enrollment",to_field_name='enrollment',label='Name and enrollment')
     
+
+
+class ReturnIssuedBookForm(forms.ModelForm):
+    class Meta:
+        model = models.IssuedBook
+        fields = ['is_returned']

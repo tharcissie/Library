@@ -10,6 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>LMS| Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
@@ -75,7 +76,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-right">
-                    <a href="logout" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
@@ -107,8 +108,8 @@
             </a>
           </li>
           <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
-          <li><a href="viewissuedbookbystudent"><i class="fa fa-plus"></i> <span>View Issued Book</span></a></li>
-          <li><a href="logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+          <li><a href="{% url 'viewissuedbookbystudent' %}"><i class="fa fa-plus"></i> <span>View Issued Book</span></a></li>
+          <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
         </ul>
       </section>
       <!-- /.sidebar -->

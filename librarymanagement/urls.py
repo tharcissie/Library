@@ -14,12 +14,12 @@ urlpatterns = [
     path('accounts/',include('django.contrib.auth.urls') ),
     path('', views.home_view, name="home_view"),
 
-    path('adminclick', views.adminclick_view),
-    path('studentclick', views.studentclick_view),
+    path('adminclick', views.adminclick_view, name='adminclick'),
+    path('studentclick', views.studentclick_view, name="studentclick"),
 
 
-    path('adminsignup', views.adminsignup_view),
-    path('studentsignup', views.studentsignup_view),
+    path('adminsignup', views.adminsignup_view, name="adminsignup"),
+    path('studentsignup', views.studentsignup_view, name="studentsignup"),
     path('adminlogin', LoginView.as_view(template_name='admin/adminlogin.html')),
     path('studentlogin', LoginView.as_view(template_name='library/studentlogin.html')),
 
@@ -34,17 +34,18 @@ urlpatterns = [
     path('<int:id>', views.update_view, name='updatebook'),
     path('<int:id>/delete', views.delete_view, name='deletebook'),
 
-    path('viewbook', views.viewbook_view, name='viewbook'),
-
     path('super_viewbook', views.viewbook, name='view'),
 
     path('super_viewissuedbook', views.viewissuedbook, name='issued'),
 
-    path('issuebook', views.issuebook_view),
-    path('super_viewstudent', views.viewstudent, name='students'),
-    path('viewissuedbook', views.viewissuedbook_view),
-    path('viewstudent', views.viewstudent_view),
-    path('viewissuedbookbystudent', views.viewissuedbookbystudent),
+   
+    path('superviewstudent', views.viewstudent, name='students'),
+    path('viewbook', views.viewbook_view, name='viewbook'),
+    path('issuebook', views.issuebook_view , name='issuebook'),
+    path('viewissuedbook', views.viewissuedbook_view, name="viewissuedbook"),
+    path('returnissuedbook/<int:id>', views.return_issued_book_view, name='return_book'),
+    path('viewstudent', views.viewstudent_view, name="viewstudent"),
+    path('viewissuedbookbystudent', views.viewissuedbookbystudent, name="viewissuedbookbystudent"),
     #path('return_book', views.return_book),
 
 ]

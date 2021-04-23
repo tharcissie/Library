@@ -1,44 +1,36 @@
 {% extends 'base2.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="content">
+    <div class="col-md-6 col-md-offset-3">
+      <section class="content-header">
+        <h1>
+          Issue Book
+        </h1>
+      </section><br>
+      <!-- USERS LIST -->
+      <div class="box box-warning">
+        <!-- /.box-header -->
+        <div class="box-body ">
+          <div class="content">
 
-  <section class="content-header">
-    <h1>
-      Issue Book
-    </h1>
-  </section> <br> <br>
-<div class="col-md-6">
-	<!-- USERS LIST -->
-	<div class="box box-warning">
-		<!-- /.box-header -->
-		<div class="box-body ">
+            <form method="post" class="form-horizontal">
+              {% csrf_token %}
 
-      <form method="post" class="form-horizontal">
-        {% csrf_token %}
+              {{ form|crispy }}
 
-        {% for field in form %}
-        <div class="form-group">
-          <label class="control-label col-xs-4">{{ field.label_tag }}</label>
-          <div class="col-xs-8">
-            {{ field }}
+              <div class="form-group">
+                <button type="submit" class=" btn btn-block text-warning">Issue</button>
+              </div>
+
+            </form>
+            <div class="text-center">View Issued Book to Student <a href="viewissuedbook">Click here</a></div>
           </div>
         </div>
-        {% endfor %}
-
-
-        <div class="form-group">
-          <div class="col-xs-8 col-xs-offset-4">
-            <button type="submit" class="text-warning">Issue</button>
-          </div>
-        </div>
-      </form>
-      <div class="text-center">View Issued Book to Student <a href="viewissuedbook">Click here</a></div>
-    
-		</div>
-		<!-- /.box-footer -->
-	</div>
-	<!--/.box -->
-</div>
-</div>
+      </div>
+      <!-- /.box-footer -->
+    </div>
+    <!--/.box -->
+  </div>
 
 {% endblock %}

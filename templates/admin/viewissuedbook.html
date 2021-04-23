@@ -26,6 +26,7 @@
               <th>Issue Date</th>
               <th>Expiry Date</th>
               <th>Fine</th>
+              <th>Returned</th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +39,7 @@
             <td>{{t.4}}</td>
             <td>{{t.5}}</td>
             <td>{{t.6}}</td>
-            <td><a href="">Returned</a></td>
+            <td><a href="{% url 'return_book' t.7 %}">returned</a></td>
           </tr>
           {%endfor%}
           </tbody>

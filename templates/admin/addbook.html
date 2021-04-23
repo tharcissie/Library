@@ -1,45 +1,36 @@
 {% extends 'base2.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<!-- Main -->
-	<div class="container">
-
+<div class="content">
+	<div class="col-md-6 col-md-offset-3">
 		<section class="content-header">
 			<h1>
 				Add Book In Library
 			</h1>
-		</section> <br> <br>
-
-
-		<div class="col-md-6">
-			<!-- USERS LIST -->
-			<div class="box box-success">
-				<!-- /.box-header -->
-				<div class="box-body ">
+		</section><br>
+		<!-- USERS LIST -->
+		<div class="box box-warning">
+			<!-- /.box-header -->
+			<div class="box-body ">
+				<div class="content">
 
 					<form method="post" class="form-horizontal" enctype='multipart/form-data'>
-
 						{% csrf_token %}
 
-						{% for field in form %}
+						{{ form|crispy }}
+
 						<div class="form-group">
-							<label class="control-label col-xs-4">{{ field.label_tag }}</label>
-							<div class="col-xs-8">
-								{{ field }}
-							</div>
+							<button type="submit" class=" btn btn-block text-warning">Add</button>
 						</div>
-						{% endfor %}
-						<div class="form-group">
-							<div class="col-xs-8 col-xs-offset-4">
-								<button type="submit" class="btn btn-success">Add</button>
-							</div>
-						</div>
+
 					</form>
 					<div class="text-center">View Available Book In Library<a href="viewbook">Click here</a></div>
-					<!-- /.users-list -->
 				</div>
-				<!-- /.box-footer -->
 			</div>
-			<!--/.box -->
 		</div>
+		<!-- /.box-footer -->
 	</div>
-	{% endblock %}
+	<!--/.box -->
+</div>
+
+{% endblock %}
