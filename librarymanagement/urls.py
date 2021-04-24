@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView,LogoutView
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 
 
@@ -13,7 +14,7 @@ urlpatterns = [
     path('accounts/',include('django.contrib.auth.urls') ),
     path('', views.home_view, name="home_view"),
     path('logout', LogoutView.as_view(), name="logout"),
-    path('afterlogin', views.afterlogin_view, name='after_login'),
+    path('afterlogin', views.afterlogin_view, name='afterlogin'),
 
     # Admin URLS
     path('admin/', admin.site.urls),
@@ -41,6 +42,12 @@ urlpatterns = [
     path('student-login', LoginView.as_view(template_name='student/studentlogin.html')),
     path('student-click', views.studentclick_view, name="studentclick"),
     path('view-issued-book-student', views.viewissuedbookbystudent, name="viewissuedbookbystudent"),
+
+    path('/',auth_views.PasswordChangeView.as_view(template_name='password/change-password.html',success_url = 'afterlogin'), name='changepassword'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name = "password/reset_password.html"), name ='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password/password_reset_sent.html"), name ='password_reset_done'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password/password_reset_form.html"), name ='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = "password/password_reset_done.html"), name ='password_reset_complete'),
 
 ]
 if settings.DEBUG:
