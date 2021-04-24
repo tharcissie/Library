@@ -138,15 +138,15 @@ def addbook_view(request):
         form=forms.BookForm(request.POST or None,files=request.FILES)
         if form.is_valid():
             user=form.save()
-            return render(request,'admin/bookadded.html')
-    return render(request,'admin/addbook.html',{'form':form})
+            return render(request,'librarian/bookadded.html')
+    return render(request,'librarian/addbook.html',{'form':form})
 
 
 @login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def viewbook_view(request):
     books= models.Book.objects.all()
-    return render(request,'admin/viewbooks.html',{'books':books})
+    return render(request,'librarian/viewbooks.html',{'books':books})
 
 
 @login_required(login_url='admin-login')
@@ -160,8 +160,8 @@ def issuebook_view(request):
             obj.enrollment=request.POST.get('enrollment2')
             obj.isbn=request.POST.get('isbn2')
             obj.save()
-            return render(request,'admin/bookissued.html')
-    return render(request,'admin/issuebook.html',{'form':form})
+            return render(request,'librarian/bookissued.html')
+    return render(request,'librarian/issuebook.html',{'form':form})
 
 
 @login_required(login_url='admin-login')
@@ -189,14 +189,14 @@ def viewissuedbook_view(request):
             i=i+1
             li.append(t)
 
-    return render(request,'admin/viewissuedbook.html',{'li':li})
+    return render(request,'librarian/viewissuedbook.html',{'li':li})
 
 
 @login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def viewstudent_view(request):
     students=models.StudentExtra.objects.all()
-    return render(request,'admin/viewstudent.html',{'students':students})
+    return render(request,'librarian/viewstudent.html',{'students':students})
 
 
 @login_required(login_url='admin-login')
@@ -207,9 +207,9 @@ def update_view(request, id):
     form = forms.BookForm(request.POST or None, instance = book)
     if form.is_valid():
         form.save()
-        return Redirect('viewbook')
+        return redirect('viewbook')
     context["form"] = form
-    return render(request, "admin/update_book.html", context)
+    return render(request, "librarian/update_book.html", context)
 
 
 def delete_view(request, id):
@@ -219,7 +219,7 @@ def delete_view(request, id):
     if request.method =="POST":
         book.delete()
         return redirect("viewbook")
-    return render(request, "admin/deletebook.html", context)
+    return render(request, "librarian/deletebook.html", context)
 
 
 @login_required(login_url='admin-login')
@@ -230,7 +230,7 @@ def return_issued_book_view(request, id):
     if form.is_valid():
         form.save()
         return redirect('viewissuedbook')
-    return render(request, 'admin/return_issued_book.html', {'form':form})
+    return render(request, 'librarian/return_issued_book.html', {'form':form})
 
 
 
@@ -256,16 +256,16 @@ def studentsignup_view(request):
             my_student_group[0].user_set.add(user)
 
         return HttpResponseRedirect('student-login')
-    return render(request,'library/studentsignup.html',context=mydict)
+    return render(request,'student/studentsignup.html',context=mydict)
 
 
 def studentclick_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'library/studentclick.html')
+    return render(request,'student/studentclick.html')
 
 
-@login_required(login_url='studentlogin')
+@login_required(login_url='student-login')
 def viewissuedbookbystudent(request):
     student=models.StudentExtra.objects.filter(user_id=request.user.id)
     issuedbook=models.IssuedBook.objects.filter(enrollment=student[0].enrollment).filter(is_returned='NO')
@@ -289,4 +289,4 @@ def viewissuedbookbystudent(request):
         t=(issdate,expdate,fine)
         li2.append(t)
 
-    return render(request,'library/viewissuedbookbystudent.html',{'li1':li1,'li2':li2})
+    return render(request,'student/viewissuedbookbystudent.html',{'li1':li1,'li2':li2})

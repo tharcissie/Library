@@ -38,7 +38,7 @@ urlpatterns = [
 
     # Student URLS
     path('student-signup', views.studentsignup_view, name="studentsignup"),
-    path('student-login', LoginView.as_view(template_name='library/studentlogin.html')),
+    path('student-login', LoginView.as_view(template_name='student/studentlogin.html')),
     path('student-click', views.studentclick_view, name="studentclick"),
     path('view-issued-book-student', views.viewissuedbookbystudent, name="viewissuedbookbystudent"),
 
