@@ -33,7 +33,7 @@ def home_view(request):
     }
     if request.user.is_authenticated:
         return HttpResponseRedirect('afterlogin')
-    return render(request,'library/index.html', context)
+    return render(request,'core/index.html', context)
 
 def is_admin(user):
     return user.groups.filter(name='LIBRARIAN').exists()
@@ -63,9 +63,9 @@ def afterlogin_view(request):
     if is_admin(request.user):
         return render(request,'admin/adminafterlogin.html', context)
     elif request.user.is_superuser:
-        return render(request,'super/super.html', context)
+        return render(request,'admin/super.html', context)
     else:
-        return render(request,'library/studentafterlogin.html', context)
+        return render(request,'student/studentafterlogin.html', context)
 
 
 ## ADMIN Views ##
@@ -87,13 +87,13 @@ def adminsignup_view(request):
             my_admin_group = Group.objects.get_or_create(name='LIBRARIAN')
             my_admin_group[0].user_set.add(user)
             return render(request,'admin/librarian_added.html')
-    return render(request,'super/addlibrarian.html',{'form':form})
+    return render(request,'admin/addlibrarian.html',{'form':form})
 
 
 @login_required(login_url='login')
 def viewbook(request):
     books= models.Book.objects.all()
-    return render(request,'super/viewbook.html',{'books':books})
+    return render(request,'admin/viewbook.html',{'books':books})
 
 
 def viewissuedbook(request):
@@ -118,12 +118,12 @@ def viewissuedbook(request):
             i=i+1
             li.append(t)
 
-    return render(request,'super/issuedbook.html',{'li':li})
+    return render(request,'admin/issuedbook.html',{'li':li})
 
 
 def viewstudent(request):
     students=models.StudentExtra.objects.all()
-    return render(request,'super/students.html',{'students':students})
+    return render(request,'admin/students.html',{'students':students})
 
 
 
