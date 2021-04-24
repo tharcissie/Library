@@ -17,7 +17,7 @@ urlpatterns = [
 
     # Admin URLS
     path('admin/', admin.site.urls),
-    path('login', LoginView.as_view(template_name='super/login.html'), name='admin-login'),
+    path('login', LoginView.as_view(template_name='admin/login.html'), name='admin-login'),
     path('admin-click', views.adminclick_view, name='adminclick'),
     path('admin-signup', views.adminsignup_view, name="adminsignup"),
     path('admin-login', LoginView.as_view(template_name='admin/adminlogin.html')),
