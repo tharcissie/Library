@@ -70,12 +70,6 @@ def afterlogin_view(request):
 
 ## ADMIN Views ##
 
-def adminclick_view(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('afterlogin')
-    return render(request,'admin/adminclick.html')
-
-
 def adminsignup_view(request):
     form=forms.AdminSigupForm()
     if request.method=='POST':
@@ -129,6 +123,11 @@ def viewstudent(request):
 
 
 ## LIBRARIAN Views ##
+
+def Librarian_click_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('afterlogin')
+    return render(request,'librarian/librarian_click.html')
 
 @login_required(login_url='admin-login')
 @user_passes_test(is_admin)

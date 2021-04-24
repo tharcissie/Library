@@ -17,16 +17,16 @@ urlpatterns = [
 
     # Admin URLS
     path('admin/', admin.site.urls),
-    path('login', LoginView.as_view(template_name='admin/login.html'), name='admin-login'),
-    path('admin-click', views.adminclick_view, name='adminclick'),
+    path('admin-login', LoginView.as_view(template_name='admin/login.html'), name='admin-login'),
     path('admin-signup', views.adminsignup_view, name="adminsignup"),
-    path('admin-login', LoginView.as_view(template_name='admin/adminlogin.html')),
     path('add-librarian', views.adminsignup_view, name='addlibrarian'),
     path('admin-view-books', views.viewbook, name='view'),
     path('admin-view-issued-books', views.viewissuedbook, name='issued'),
     path('admin-view-students', views.viewstudent, name='students'),
 
     # Librarian URLS
+    path('librarian-click', views.Librarian_click_view, name='librarian_click'),
+    path('librarian-login', LoginView.as_view(template_name='librarian/librarian_login.html')),
     path('add-book', views.addbook_view, name='addbook'),
     path('view-books', views.viewbook_view, name='viewbook'),
     path('issue-book', views.issuebook_view , name='issuebook'),
