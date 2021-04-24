@@ -58,7 +58,7 @@ def adminsignup_view(request):
             user.save()
             my_admin_group = Group.objects.get_or_create(name='LIBRARIAN')
             my_admin_group[0].user_set.add(user)
-            return HttpResponseRedirect('afterlogin')
+            return render(request,'admin/librarian_added.html')
     return render(request,'super/addlibrarian.html',{'form':form})
 
 
@@ -81,7 +81,7 @@ def studentsignup_view(request):
             my_student_group = Group.objects.get_or_create(name='STUDENT')
             my_student_group[0].user_set.add(user)
 
-        return HttpResponseRedirect('studentlogin')
+        return HttpResponseRedirect('student-login')
     return render(request,'library/studentsignup.html',context=mydict)
 
 
@@ -118,7 +118,7 @@ def afterlogin_view(request):
         return render(request,'library/studentafterlogin.html', context)
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def addbook_view(request):
     form=forms.BookForm()
@@ -129,7 +129,7 @@ def addbook_view(request):
             return render(request,'admin/bookadded.html')
     return render(request,'admin/addbook.html',{'form':form})
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def update_view(request, id):
     context ={}
@@ -143,28 +143,22 @@ def update_view(request, id):
 
 
 def delete_view(request, id):
-    context ={}
     book = get_object_or_404(models.Book, id = id)
+    context ={'book':book}
+
     if request.method =="POST":
         book.delete()
         return redirect("viewbook")
     return render(request, "admin/deletebook.html", context)
 
 
-#def return_book(request):
- #   request_id = request.GET.get('request_id')
-  #  book = IssuedBook.objects.get(id=request_id)
-   # book.status = 'returned'
-    #book.save()
-
-   # return render(request, 'admin/viewissuedbook.html')
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def viewbook_view(request):
     books= models.Book.objects.all()
-    return render(request,'admin/viewbook.html',{'books':books})
+    return render(request,'admin/viewbooks.html',{'books':books})
 
 @login_required(login_url='login')
 def viewbook(request):
@@ -172,7 +166,7 @@ def viewbook(request):
     return render(request,'super/viewbook.html',{'books':books})
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def issuebook_view(request):
     form=forms.IssuedBookForm()
@@ -187,7 +181,7 @@ def issuebook_view(request):
     return render(request,'admin/issuebook.html',{'form':form})
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def viewissuedbook_view(request):
     issuedbooks=models.IssuedBook.objects.all().filter(is_returned='NO')
@@ -240,7 +234,7 @@ def viewissuedbook(request):
     return render(request,'super/issuedbook.html',{'li':li})
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def return_issued_book_view(request, id):
     issued_book = models.IssuedBook.objects.get(id=id)
@@ -252,7 +246,7 @@ def return_issued_book_view(request, id):
 
 
 
-@login_required(login_url='adminlogin')
+@login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def viewstudent_view(request):
     students=models.StudentExtra.objects.all()

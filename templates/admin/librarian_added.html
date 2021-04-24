@@ -1,0 +1,35 @@
+{% extends 'base2.html' %}
+{% block content %}
+
+<style>
+.success{
+	text-align: center;
+    border: 1px solid green;
+    padding: 10px;
+
+}
+.take-back{
+    border: 1px solid darkblue;
+    padding: 13px;
+    background: darkblue;
+    color: white;
+    text-decoration: none;
+}
+</style>
+<div class="container">
+	<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-7">
+			<section class="content-header">
+				<h3 class="success">
+					Librarian has been Added Successfully!
+				</h3>
+			</section> <br> <br>
+			<div class="col-md-12">
+                <a class ="take-back" href="{% url 'after_login' %}">Take me back</a>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>
+{% endblock %}
