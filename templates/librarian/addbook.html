@@ -1,6 +1,14 @@
 {% extends 'base2.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+	.isbn-error{
+		margin-left: -12px;
+		color: red;
+		font-size: 16px;
+	}
+</style>
+
 <div class="content">
 	<div class="col-md-6 col-md-offset-3">
 		<section class="content-header">
@@ -14,7 +22,10 @@
 
 					<form method="post" class="form-horizontal" enctype='multipart/form-data'>
 						{% csrf_token %}
-
+						{% if error %}
+							<p class="isbn-error">{{error}}</p>
+						{% else %}
+						{% endif %}
 						{{ form|crispy }}
 
 						<div class="form-group">
@@ -22,7 +33,7 @@
 						</div>
 
 					</form>
-					<div class="text-center">View Available Book In Library<a href="viewbook"> Click here</a></div>
+					<div class="text-center">View available books in library<a href="{% url 'viewbook' %}"> Click here</a></div>
 				</div>
 			</div>
 		</div>

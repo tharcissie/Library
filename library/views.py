@@ -132,13 +132,24 @@ def Librarian_click_view(request):
 @login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def addbook_view(request):
-    form=forms.BookForm()
-    if request.method=='POST':
-        form=forms.BookForm(request.POST or None,files=request.FILES)
+    form = forms.BookForm()
+    if request.method == 'POST':
+        form = forms.BookForm(request.POST or None,files=request.FILES)
         if form.is_valid():
-            user=form.save()
-            return render(request,'librarian/bookadded.html')
+            isbn = form.cleaned_data.get('isbn')
+
+            if len(str(isbn)) == 8:
+                user = form.save()
+                return redirect('bookadded')
+            else:
+                return render(request,'librarian/addbook.html',{'form':form, 'error':"ISBN must be 8 numbers"})
     return render(request,'librarian/addbook.html',{'form':form})
+
+
+@login_required(login_url='admin-login')
+@user_passes_test(is_admin)
+def bookadded_view(request):
+    return render(request,'librarian/bookadded.html')
 
 
 @login_required(login_url='admin-login')
@@ -151,16 +162,25 @@ def viewbook_view(request):
 @login_required(login_url='admin-login')
 @user_passes_test(is_admin)
 def issuebook_view(request):
-    form=forms.IssuedBookForm()
-    if request.method=='POST':
-        form=forms.IssuedBookForm(request.POST)
+    form = forms.IssuedBookForm()
+    if request.method =='POST':
+        form = forms.IssuedBookForm(request.POST)
         if form.is_valid():
-            obj=models.IssuedBook()
-            obj.enrollment=request.POST.get('enrollment2')
-            obj.isbn=request.POST.get('isbn2')
+            obj = models.IssuedBook()
+            obj.enrollment = request.POST.get('enrollment2')
+            obj.isbn = request.POST.get('isbn2')
+            validation =  models.IssuedBook.objects.filter(enrollment=obj.enrollment ).filter(is_returned='NO').exists()
+            if validation:
+                return render(request,'librarian/issuebook.html',{'form':form, 'error':"The student has another issued book"})
             obj.save()
-            return render(request,'librarian/bookissued.html')
+            return redirect('issued_books')
     return render(request,'librarian/issuebook.html',{'form':form})
+
+
+@login_required(login_url='admin-login')
+@user_passes_test(is_admin)
+def issued_books_view(request):
+    return render(request,'librarian/bookissued.html')
 
 
 @login_required(login_url='admin-login')

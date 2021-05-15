@@ -1,5 +1,11 @@
 {% extends 'base2.html' %}
 {% block content %}
+<style>
+  .s-name{
+      text-transform: capitalize;
+  }
+</style>
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <div class="content">
   <div class="box box-info">
@@ -21,13 +27,13 @@
             <tr>
               <th>Name</th>
               <th>Enrollment</th>
-              <th>department</th>
+              <th>Department</th>
             </tr>
           </thead>
           <tbody>
             {% for s in students %}
             <tr>
-              <td>{{s.get_name}}</td>
+              <td class="s-name">{{s.get_name}}</td>
               <td>{{s.enrollment}}</td>
               <td>{{s.department}}</td>
             </tr>
@@ -35,7 +41,7 @@
           </tbody>
         </table>
         {% else %}
-        <h1>No Student Registered in Library!</h1>
+        <h1>No Student Registered in Library Management System!</h1>
         {% endif %}
       </div>
       <!-- /.table-responsive -->

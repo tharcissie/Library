@@ -1,6 +1,13 @@
 {% extends 'base2.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+	.issue-error{
+		margin-left: -12px;
+		color: red;
+		font-size: 16px;
+	}
+</style>
 <div class="content">
     <div class="col-md-6 col-md-offset-3">
       <section class="content-header">
@@ -8,29 +15,27 @@
           Issue Book
         </h1>
       </section><br>
-      <!-- USERS LIST -->
       <div class="box box-warning">
-        <!-- /.box-header -->
         <div class="box-body ">
           <div class="content">
 
             <form method="post" class="form-horizontal">
               {% csrf_token %}
-
+              {% if error %}
+              <p class="issue-error">{{error}}</p>
+              {% else %}
+              {% endif %}
               {{ form|crispy }}
 
               <div class="form-group">
                 <button type="submit" class=" btn btn-block text-warning">Issue</button>
               </div>
-
             </form>
-            <div class="text-center">View Issued Book to Student <a href="viewissuedbook">Click here</a></div>
+            <div class="text-center">View Issued Books by Students <a href="{% url 'viewissuedbook' %}">Click here</a></div>
           </div>
         </div>
       </div>
-      <!-- /.box-footer -->
     </div>
-    <!--/.box -->
   </div>
 
 {% endblock %}

@@ -28,11 +28,11 @@ class Book(models.Model):
         ('biography', 'Biographie'),
         ('history', 'History'),
         ]
-    name=models.CharField(max_length=30)
-    image = models.ImageField(upload_to='cover')
-    isbn=models.PositiveIntegerField()
-    author=models.CharField(max_length=40)
-    category=models.CharField(max_length=30, choices=catchoice, default='education')
+    name = models.CharField(max_length=30)
+    book_cover_image = models.ImageField(upload_to='cover')
+    isbn = models.PositiveIntegerField()
+    author = models.CharField(max_length=40)
+    category = models.CharField(max_length=30, choices=catchoice, default='education')
     def __str__(self):
         return str(self.name)+"["+str(self.isbn)+']'
 

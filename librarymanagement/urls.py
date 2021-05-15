@@ -14,7 +14,7 @@ urlpatterns = [
     path('accounts/',include('django.contrib.auth.urls') ),
     path('', views.home_view, name="home_view"),
     path('logout', LogoutView.as_view(), name="logout"),
-    path('afterlogin', views.afterlogin_view, name='afterlogin'),
+    path('afterlogin', views.afterlogin_view, name='after_login'),
 
     # Admin URLS
     path('admin/', admin.site.urls),
@@ -29,8 +29,14 @@ urlpatterns = [
     path('librarian-click', views.Librarian_click_view, name='librarian_click'),
     path('librarian-login', LoginView.as_view(template_name='librarian/librarian_login.html')),
     path('add-book', views.addbook_view, name='addbook'),
+    path('book-added', views.bookadded_view, name='bookadded'),
+
+    
     path('view-books', views.viewbook_view, name='viewbook'),
     path('issue-book', views.issuebook_view , name='issuebook'),
+    path('issued-books', views.issued_books_view , name='issued_books'),
+
+    
     path('view-issued-books', views.viewissuedbook_view, name="viewissuedbook"),
     path('view-students', views.viewstudent_view, name="viewstudent"),
     path('update/<int:id>', views.update_view, name='updatebook'),
@@ -43,7 +49,7 @@ urlpatterns = [
     path('student-click', views.studentclick_view, name="studentclick"),
     path('view-issued-book-student', views.viewissuedbookbystudent, name="viewissuedbookbystudent"),
 
-    path('/',auth_views.PasswordChangeView.as_view(template_name='password/change-password.html',success_url = 'afterlogin'), name='changepassword'),
+    path('change-password',auth_views.PasswordChangeView.as_view(template_name='password/change-password.html',success_url = 'afterlogin'), name='changepassword'),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name = "password/reset_password.html"), name ='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password/password_reset_sent.html"), name ='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password/password_reset_form.html"), name ='password_reset_confirm'),
