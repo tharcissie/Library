@@ -48,7 +48,8 @@ urlpatterns = [
     path('student-login', LoginView.as_view(template_name='student/studentlogin.html')),
     path('student-click', views.studentclick_view, name="studentclick"),
     path('view-issued-book-student', views.viewissuedbookbystudent, name="viewissuedbookbystudent"),
-
+    
+    path('change-password-student',auth_views.PasswordChangeView.as_view(template_name='password/change-password-student.html',success_url = 'afterlogin'), name='changepassword_student'),
     path('change-password',auth_views.PasswordChangeView.as_view(template_name='password/change-password.html',success_url = 'afterlogin'), name='changepassword'),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name = "password/reset_password.html"), name ='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password/password_reset_sent.html"), name ='password_reset_done'),
