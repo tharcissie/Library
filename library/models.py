@@ -5,8 +5,8 @@ from datetime import datetime,timedelta
 
 
 class StudentExtra(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
-    enrollment = models.CharField(max_length=40)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    enrollment = models.CharField(max_length=8)
     department = models.CharField(max_length=40, blank=True, null=True)
    
     def __str__(self):

@@ -97,7 +97,6 @@ def viewissuedbook(request):
         issdate=str(ib.issuedate.day)+'-'+str(ib.issuedate.month)+'-'+str(ib.issuedate.year)
         expdate=str(ib.expirydate.day)+'-'+str(ib.expirydate.month)+'-'+str(ib.expirydate.year)
         days=(date.today()-ib.issuedate)
-        print(date.today())
         d=days.days
         fine=0
         if d>14:
@@ -192,7 +191,6 @@ def viewissuedbook_view(request):
         issdate=str(ib.issuedate.day)+'-'+str(ib.issuedate.month)+'-'+str(ib.issuedate.year)
         expdate=str(ib.expirydate.day)+'-'+str(ib.expirydate.month)+'-'+str(ib.expirydate.year)
         days=(date.today()-ib.issuedate)
-        print(date.today())
         d=days.days
         fine=0
         if d>14:
@@ -271,10 +269,13 @@ def studentsignup_view(request):
             f2.user = user
             user2=f2.save()
 
-            my_student_group = Group.objects.get_or_create(name='STUDENT')
-            my_student_group[0].user_set.add(user)
-
-        return HttpResponseRedirect('student-login')
+            enrol = form2.cleaned_data.get('enrollment')
+            if len(enrol) == 8:
+                my_student_group = Group.objects.get_or_create(name='STUDENT')
+                my_student_group[0].user_set.add(user)
+                return HttpResponseRedirect('student-login')
+            else:
+                return render(request,'student/studentsignup.html', {'form1':form1,'form2':form2,'error':"Sorry!, Enrolment number must be 8 numbers"})
     return render(request,'student/studentsignup.html',context=mydict)
 
 
@@ -299,7 +300,6 @@ def viewissuedbookbystudent(request):
         expdate=str(ib.expirydate.day)+'-'+str(ib.expirydate.month)+'-'+str(ib.expirydate.year)
         #fine calculation
         days=(date.today()-ib.issuedate)
-        print(date.today())
         d=days.days
         fine=0
         if d>14:

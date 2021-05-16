@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<style>
+
+.errorlist{
+  color: red;
+  list-style:none;
+}
+</style>
+
 <div id="main">
-
     <br>
     <br>
-
     <div class="inner">
-        <!-- About Us -->
         <header id="inner">
             <h3>Login As Admin!</h3>
         </header>
-
         <br>
         <div class="container" id="main">
             <div class="row">
                 <div class="col-md-6">
                     <section>
                         <form class="row g-3" action="{% url 'admin-login' %}" method="post">
+                            {{form.non_field_errors }}
                             {% csrf_token %}
                             <div class="fields">
                                 <div class="field half">

@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <div id="main">
+<style>
+
+.errorlist{
+  color: red;
+  list-style:none;
+  margin-left:-27px;
+}
+</style>
 
   <div class="inner">
     <header id="inner">
@@ -13,6 +21,7 @@
         <div class="col-md-6">
           <section>
             <form method="post" action="" enctype='multipart/form-data'>
+            		{{form.non_field_errors }}
               {% csrf_token %}
               <div class="fields">
                 {% for field in form %}

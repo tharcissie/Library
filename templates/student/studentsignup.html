@@ -13,6 +13,10 @@
             <div class="col-md-6">
               <section>
                 <form method="post" action="" enctype='multipart/form-data'>
+                {% if error %}
+                  <p>{{error}}</p>
+                {% else %}
+                {% endif %}
                   {% csrf_token %}
                   <div class="fields">
                     {% for field in form1 %}
